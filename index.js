@@ -21,6 +21,7 @@ let mqttConnected;
 let gatewayConnected = 0;
 const gwVol = {};
 const gwDevices = {};
+const batLevel = {};
 
 let names = {};
 const sids = {};
@@ -122,19 +123,23 @@ function getName(sid) {
 }
 
 function pubBattery(topic, device) {
-    const batPercent = device.getBatteryPercentage && device.getBatteryPercentage();
+    const sid = device.getSid();
     const batVoltage = device.getBatteryVoltage && (device.getBatteryVoltage() / 1000);
-    const payload = {
-        val: batPercent,
-        voltage: batVoltage,
-        low: batVoltage < 2.8,
-        ts: (new Date()).getTime(),
-        aqara: {
-            type: device.getType(),
-            sid: device.getSid()
-        }
-    };
-    mqttPub(topic + '/battery', payload, {retain: true});
+    if (batVoltage !== batLevel[sid]) {
+        batLevel[sid] = batVoltage;
+        const batPercent = device.getBatteryPercentage && device.getBatteryPercentage();
+        const payload = {
+            val: batPercent,
+            voltage: batVoltage,
+            low: batVoltage < 2.8,
+            ts: (new Date()).getTime(),
+            aqara: {
+                type: device.getType(),
+                sid
+            }
+        };
+        mqttPub(topic + '/battery', payload, {retain: true});
+    }
 }
 
 function createPayload(val, device, addition) {

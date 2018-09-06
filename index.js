@@ -323,7 +323,6 @@ aqara.on('gateway', gateway => {
             }
 
             default:
-
         }
     });
 

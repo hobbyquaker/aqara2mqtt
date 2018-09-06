@@ -7,7 +7,7 @@
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![License][mit-badge]][mit-url]
 
-> Attach an [Aqara](https://www.aqara.com/en/products.html) Smart Hub to MQTT
+> Attach [Aqara](https://www.aqara.com/en/products.html) Smart Hubs to MQTT
 
 ### Install
 

@@ -58,6 +58,29 @@ or play sounds on the gateway.
 All Switches, all Sensors (Cube, Weather, Vibration, Motion, Leak, Door/Window, Smoke) and the Gateway itself. As of 
 today you _can't_ control plugs, the air condition controller and the curtain actuator.
 
+### Topics published by aqara2mqtt
+
+A few examples, not a complete listing, sids anonymised:
+
+```
+aqara/status/MotionKeller/offline {"val":false,"ts":1536254115426}
+aqara/status/MotionKeller/motion {"val":true,"ts":1536253676785,"aqara":{"type":"motion","sid":"158d0000000000"}}
+aqara/status/MotionKeller/brightness {"val":"21","ts":1536253676785,"aqara":{"type":"motion","sid":"158d0000000000"}}
+aqara/status/Gateway/bri {"val":0,"ts":1536253741804,"aqara":{"sid":"7811d0000000","ip":"172.16.23.107"}}
+aqara/status/Gateway/color {"val":"#000000","ts":1536253741804,"aqara":{"sid":"7811d0000000","ip":"172.16.23.107"}}
+aqara/status/Cube/battery {"val":64,"voltage":2.965,"low":false,"ts":1536252097696,"aqara":{"type":"cube","sid":"158d0000000000"}}
+aqara/status/Cube/alert {"val":true,"ts":1536254074965,"aqara":{"type":"cube","sid":"158d0000000000"}}
+aqara/status/DoorBad/offline {"val":false,"ts":1536254090481}
+aqara/status/DoorBad/magnet {"val":false,"ts":1536254090482,"aqara":{"type":"magnet","sid":"158d0000000000"}}
+aqara/status/Cube/rotate {"time":500,"val":36,"ts":1536254398355,"aqara":{"type":"cube","sid":"158d0000000000"}}
+aqara/status/Cube/free_fall {"val":true,"ts":1536254403533,"aqara":{"type":"cube","sid":"158d0000000000"}}
+aqara/status/Cube/tap_twice {"val":true,"ts":1536254409346,"aqara":{"type":"cube","sid":"158d0000000000"}}
+aqara/status/Switch1/offline {"val":false,"ts":1536254412160}
+aqara/status/Switch1/battery {"val":99,"voltage":3.095,"low":false,"ts":1536254412161,"aqara":{"type":"switch","sid":"158d0000000000"}}
+aqara/status/Switch1/press {"val":true,"ts":1536254412161,"aqara":{"type":"switch","sid":"158d0000000000"}}
+aqara/status/Switch1/press_double {"val":true,"ts":1536254415962,"aqara":{"type":"switch","sid":"158d0000000000"}}
+```
+
 
 ### Topics subscribed by aqara2mqtt
 

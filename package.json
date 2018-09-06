@@ -1,0 +1,52 @@
+{
+  "name": "aqara2mqtt",
+  "version": "1.0.0",
+  "description": "Attach an Aqara Smart Hub to MQTT",
+  "main": "index.js",
+  "bin": {
+    "aqara2mqtt": "index.js"
+  },
+  "preferGlobal": true,
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "test": "camo-purge ; xo",
+    "lintfix": "xo --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hobbyquaker/aqara2mqtt"
+  },
+  "keywords": [
+    "mqtt",
+    "smarthome",
+    "xiaomi",
+    "aqara",
+    "mi",
+    "smart",
+    "home",
+    "hub",
+    "iot"
+  ],
+  "author": "Sebastian Raff <hobbyquaker@gmail.com> (https://hobbyquaker.github.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hobbyquaker/aqara2mqtt/issues"
+  },
+  "homepage": "https://github.com/hobbyquaker/aqara2mqtt",
+  "dependencies": {
+    "lumi-aqara": "^1.8.0",
+    "mqtt": "^2.18.8",
+    "mqtt-wildcard": "^3.0.9",
+    "yalm": "^4.1.0",
+    "yargs": "^12.0.1"
+  },
+  "devDependencies": {
+    "camo-purge": "latest",
+    "xo": "latest"
+  },
+  "xo": {
+    "space": 4
+  }
+}

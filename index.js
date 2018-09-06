@@ -21,13 +21,20 @@ let mqttConnected;
 let gatewayConnected = 0;
 const gwVol = {};
 const gwDevices = {};
+const gwPasswords = {};
 const batLevel = {};
 
-let names = {};
+const names = {};
 const sids = {};
 if (config.devices) {
-    names = require(config.devices);
-    Object.keys(names).forEach(sid => {
+    const devices = require(config.devices);
+    Object.keys(devices).forEach(sid => {
+        if (typeof devices[sid] === 'object') {
+            names[sid] = devices[sid].name;
+            gwPasswords[sid] = devices[sid].password;
+        } else {
+            names[sid] = devices[sid];
+        }
         sids[names[sid]] = sid;
     });
 }
@@ -158,8 +165,8 @@ aqara.on('gateway', gateway => {
     log.info('gateway discovered', gateway._sid, gateway._ip, getName(gateway._sid));
     gateway.on('ready', () => {
         log.info('gateway ready', gateway._sid, getName(gateway._sid));
-        if (config.password) {
-            gateway.setPassword(config.password);
+        if (gwPasswords[gateway._sid]) {
+            gateway.setPassword(gwPasswords[gateway._sid]);
         }
         gatewayConnected += 1;
         pubConnected();

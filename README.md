@@ -29,7 +29,6 @@ Options:
   -k, --insecure   allow ssl connections without valid certificate     [boolean]
   -u, --url        mqtt broker url (may contain user/password)
                                                    [default: "mqtt://127.0.0.1"]
-  -p, --password   gateway password
   -d, --devices    json file with sid to name mappings
   -h, --help       Show help                                           [boolean]
   --version        Show version number                                 [boolean]
@@ -41,10 +40,18 @@ Options:
 You can use a json file that defines mappings from sids to names via the `--devices` option. Example:
 ```javascript
 {
-    "1234567890abcdef": "DoorSensor1",
-    "9876543210fedc": "Gateway"
+    "1234567890abcdef": "WindowSensor1",
+    "2222222222abcdef": "LeakSensor1",
+    "3333333333abcdef": "LeakSensor2",
+    "9876543210fedc": {
+        "name": "Gateway1",
+        "password": "ABCDEF1234567890"
+    }
 }
 ```
+
+If you don't define a gateway password you will still receive status reports, but you will not be able to set the LED
+or play sounds on the gateway.
 
 ### Supported Devices
 

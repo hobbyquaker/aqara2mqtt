@@ -4,7 +4,6 @@ module.exports = require('yargs')
     .describe('n', 'instance name. used as topic prefix')
     .describe('k', 'allow ssl connections without valid certificate')
     .describe('u', 'mqtt broker url')
-    .describe('p', 'gateway password')
     .describe('d', 'json file with sid to name mappings')
     .describe('h', 'show help')
     .alias({
@@ -13,7 +12,6 @@ module.exports = require('yargs')
         u: 'url',
         k: 'insecure',
         v: 'verbosity',
-        p: 'password',
         d: 'devices'
     })
     .default({

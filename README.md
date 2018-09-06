@@ -36,7 +36,7 @@ Options:
 ```
 
 
-### Name mappings
+### Device file
 
 You can use a json file that defines mappings from sids to names via the `--devices` option. Example:
 ```javascript
@@ -48,16 +48,18 @@ You can use a json file that defines mappings from sids to names via the `--devi
 
 ### Supported Devices
 
-All Switches, all Sensors (Cube, Weather, Vibration, Motion, Leak, Door/Window) and the Gateway itself. As of today you 
-_can't_ control plugs, the air condition controller and the curtain actuator.
+All Switches, all Sensors (Cube, Weather, Vibration, Motion, Leak, Door/Window, Smoke) and the Gateway itself. As of 
+today you _can't_ control plugs, the air condition controller and the curtain actuator.
 
 
 ### Topics subscribed by aqara2mqtt
 
-* aqara/set/gateway/bri `0` - `100`
-* aqara/set/gateway/rgb `#rrggbb` e.g. `#0099FF`
-* aqara/set/gateway/volume `0` - `100`
-* aqara/set/gateway/sound 
+You can address a gateway by its sid or (if defined in device file) by its name.
+
+* aqara/set/_gateway_/bri `0` - `100`
+* aqara/set/_gateway_/color `#rrggbb` e.g. `#0099FF`
+* aqara/set/_gateway_/volume `0` - `100`
+* aqara/set/_gateway_/sound 
   * `0` - Police car 1
   * `1` - Police car 2
   * `2` - Accident

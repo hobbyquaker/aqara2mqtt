@@ -23,6 +23,7 @@ const gwVol = {};
 const gwDevices = {};
 const gwPasswords = {};
 const batLevel = {};
+const values = {};
 
 const names = {};
 const sids = {};
@@ -142,7 +143,8 @@ function pubBattery(topic, device) {
             ts: (new Date()).getTime(),
             aqara: {
                 type: device.getType(),
-                sid
+                sid,
+                cached: device.isCached()
             }
         };
         mqttPub(topic + '/battery', payload, {retain: true});
@@ -156,10 +158,20 @@ function createPayload(val, device, addition) {
         ts: (new Date()).getTime(),
         aqara: {
             type: device.getType(),
-            sid: device.getSid()
+            sid: device.getSid(),
+            cached: device.isCached()
         }
     });
 }
+
+aqara.on('debug', payload => {
+    try {
+        const parsed = JSON.parse(payload);
+        log.debug('     <', parsed.cmd, getName(parsed.sid), parsed.data);
+    } catch (err) {
+        log.debug('     <', payload);
+    }
+});
 
 aqara.on('gateway', gateway => {
     log.info('gateway discovered', gateway._sid, gateway._ip, getName(gateway._sid));
@@ -201,6 +213,10 @@ aqara.on('gateway', gateway => {
         device.on('offline', () => {
             mqttPub(topic + '/offline', {val: true, ts: (new Date()).getTime()}, {retain: true});
         });
+
+        if (!values[device.getSid()]) {
+            values[device.getSid()] = {};
+        }
 
         switch (device.getType()) {
             case 'magnet': {
@@ -259,9 +275,16 @@ aqara.on('gateway', gateway => {
                     const temp = device.getTemperature();
                     const hum = device.getHumidity();
                     const pres = device.getPressure();
-                    mqttPub(topic + '/temperature', createPayload(temp, device), {retain: true});
-                    mqttPub(topic + '/humidity', createPayload(hum, device), {retain: true});
-                    if (pres) {
+                    if (values[device.getSid()].temperature !== temp) {
+                        values[device.getSid()].temperature = temp;
+                        mqttPub(topic + '/temperature', createPayload(temp, device), {retain: true});
+                    }
+                    if (values[device.getSid()].humidity !== hum) {
+                        values[device.getSid()].humidity = hum;
+                        mqttPub(topic + '/humidity', createPayload(hum, device), {retain: true});
+                    }
+                    if (pres && values[device.getSid()].pressure !== pres) {
+                        values[device.getSid()].pressure = pres;
                         mqttPub(topic + '/pressure', createPayload(pres, device), {retain: true});
                     }
                     pubBattery(topic, device);
